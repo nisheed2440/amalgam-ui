@@ -59,6 +59,21 @@ module.exports = function component(plop) {
         path: 'src/components/{{pascalCase componentName}}/{{pascalCase componentName}}.json',
         templateFile: './.plop/templates/component/Component.json',
       },
+      {
+        type: 'add',
+        path: 'src/components/{{pascalCase componentName}}/README.md',
+        templateFile: './.plop/templates/component/readme.md',
+      },
+      {
+        type: 'add',
+        path: 'src/components/{{pascalCase componentName}}/CHANGELOG.md',
+        templateFile: './.plop/templates/component/changelog.md',
+      },
+      {
+        type: 'add',
+        path: 'src/components/{{pascalCase componentName}}/package.json',
+        templateFile: './.plop/templates/component/pkg.json',
+      },
     ],
   });
 };

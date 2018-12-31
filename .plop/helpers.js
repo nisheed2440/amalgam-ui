@@ -2,7 +2,7 @@
  * Funtion to add custom utility helpers to the plop instance.
  * Refer: https://plopjs.com/documentation/#sethelper
  */
-module.exports = function utils() {
+module.exports = function utils(plop) {
   /**
    * In-built helpers
    *  
@@ -18,4 +18,22 @@ module.exports = function utils() {
       titleCase: Change Format To This
       pkg: Look up package.json
    */
+  plop.setHelper('timestamp', function() {
+    const timestamp = new Date();
+    const monthNames = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+    return `${monthNames[timestamp.getMonth()]}, ${timestamp.getDate()} ${timestamp.getFullYear()}`;
+  });
 };
