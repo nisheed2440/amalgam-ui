@@ -1,3 +1,4 @@
+import '@babel/polyfill';
 import ExecutionEnvironment from 'exenv';
 import vendors from './vendors';
 

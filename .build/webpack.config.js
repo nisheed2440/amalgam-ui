@@ -4,9 +4,9 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: {
-    main: path.resolve(__dirname, '..', 'src/vendors/index.js'),
+    vendor: path.resolve(__dirname, '..', 'src/vendors/index.js'),
   },
   output: {
     path: path.resolve(__dirname, '..', 'dist/vendor'),
@@ -15,20 +15,18 @@ module.exports = {
   plugins: [
     new webpack.HashedModuleIdsPlugin(), // so that file hashes don't change unexpectedly
     new ManifestPlugin({
-      fileName: 'main-manifest.json',
+      fileName: 'manifest.json',
       publicPath: '',
       seed: {
         name: 'Amalgam UI Vendor',
       },
     }),
     new HtmlWebpackPlugin({
-      title: 'Main Bundle',
+      title: 'Vendor Bundle',
     }),
   ],
   optimization: {
-    runtimeChunk: {
-      name: entrypoint => `runtime~${entrypoint.name}`,
-    },
+    runtimeChunk: 'single',
     splitChunks: {
       chunks: 'async',
       maxInitialRequests: Infinity,
@@ -39,7 +37,6 @@ module.exports = {
           name(module, _chunks, cacheGroupKey) {
             // get the name. E.g. node_modules/packageName/not/this/part.js
             // or node_modules/packageName
-            console.log(module.context);
             const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
             // Separate chunks for the following packages
             if (packageName.match(/(react|turbolinks|mobx)/gi)) {
